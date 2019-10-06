@@ -1,5 +1,6 @@
 # Create S3 Website Bucket, ACM for domain, Cloudfront, and Route 53 Zone and Record
 
+-1. Clone or fork this repository.
 0. Register a domain in Route53 AWS Console
 1. Edit the `dev.tfvars` file to specify your domain and your desired bucket name
 2. Configure your aws credentials on your machine

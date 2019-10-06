@@ -67,7 +67,7 @@ resource "aws_acm_certificate" "cert" {
 }
 
 data "aws_route53_zone" "zone" {
-  name         = "${var.domain}."
+  name         = "${var.domain}"
   private_zone = false
 }
 
@@ -139,3 +139,16 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   depends_on = [aws_acm_certificate_validation.cert]
 }
 
+resource "aws_route53_record" "www" {
+  zone_id = "${data.aws_route53_zone.zone.id}"
+  name    = "${var.domain}"
+  type    = "A"
+
+  alias {
+    name                   = "${aws_cloudfront_distribution.s3_distribution.domain_name}"
+    zone_id                = "${data.aws_route53_zone.zone.id}"
+    evaluate_target_health = true
+  }
+
+  depends_on = [aws_cloudfront_distribution.s3_distribution]
+}

@@ -164,7 +164,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
 }
 
-resource "aws_route53_record" "www" {
+resource "aws_route53_record" "record_a" {
   zone_id = data.aws_route53_zone.zone.id
   name    = var.domain
   type    = "A"
